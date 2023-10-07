@@ -1,63 +1,59 @@
-#include<iostream>
-#include<stack>
-#include<string>
+#include <iostream>
+#include <string>
+#include <cstring>
 
 using namespace std;
 
-int main(void) {
-    int n;
-    cin >> n;
+class Stack {
+private:
+	int n[10000];
+	int count;
+public:
+	Stack() {
+		memset(n, 0, sizeof(int));
+		count = 0;
+	}
 
-    stack<int> st; 
-    string str;
+	void push(int num) {
+		n[count++] = num;
+	}
+	int pop() {
+		if (count != 0) return n[--count];
+		else return -1;
+	}
+	int size() {
+		return count;
+	}
+	int empty() {
+		if (count != 0) return 0;
+		else return 1;
+	}
+	int top() {
+		if (count == 0) return -1;
+		else return n[count-1];
+	}
+};
 
-    for (int i = 0; i < n; i++) {
-        cin >> str;
+int main() {
+	int command_num;
+	cin >> command_num;
 
-        if (str == "push") {  
+	string command;
+	Stack s;
+	string str;
 
-            int num;
-            cin >> num;
-            st.push(num);
+	for (int i = 0; i < command_num; i++) {
+		cin >> command;
+		if (command == "push") {
+			int num;
+			cin >> num;
+			s.push(num);
+		}
+		else if (command == "pop") cout << s.pop() << endl;
+		else if (command == "size") cout << s.size() << endl;
+		else if (command == "empty") cout << s.empty() << endl;
+		else if (command == "top") cout << s.top() << endl;
+	}
 
-        }
-        else if (str == "pop") {   
-
-            if (!st.empty()) {
-                cout << st.top() << endl;
-                st.pop();
-            }
-            else {
-                cout << "-1" << endl;
-            }
-
-        }
-        else if (str == "size") {       
-
-            cout << st.size() << endl;
-
-        }
-        else if (str == "empty") {    
-
-            if (st.empty()) {
-                cout << "1" << endl;
-            }
-            else {
-                cout << "0" << endl;
-            }
-
-        }
-        else if (str == "top") {        
-
-            if (!st.empty()) {
-                cout << st.top() << endl;
-            }
-            else {
-                cout << "-1" << endl;
-            }
-
-        }
-
-    }
-    return 0;
+	return 0;
 }
